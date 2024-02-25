@@ -1,0 +1,25 @@
+#docker compose is more convenient and easy to manage multiple containers as
+#compared to a normal docker file
+
+## Use the Jaeger all-in-one image as base
+#  FROM jaegertracing/all-in-one:latest
+#
+#  # Expose ports for receiving traces and accessing Jaeger UI
+#  EXPOSE 4318 16686
+
+#  # Set environment variable to enable OTLP collector
+#  ENV COLLECTOR_OTLP_ENABLED=true
+
+
+version: "3.9"
+services:
+  jaeger:
+    #base image kisko use krna h vo h
+    image: jaegertracing/all-in-one:latest
+    #konse port expose krne h aur unki mapping inside container
+    ports:
+      - 4318:4318
+      - 16686:16686
+    environment:
+    #OTLP protocol k traces collect krpaay jaegar isiliye
+      - COLLECTOR_OTLP_ENABLED=true

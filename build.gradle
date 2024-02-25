@@ -1,0 +1,45 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.1.8'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'TelemetryBoot'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+jar {
+    manifest {
+        attributes 'Main-Class': 'org.example.Main'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+//Micrometer collects metrics about your microservices' behavior and performance.
+//OpenTelemetry exporter exports trace data to Jaeger for distributed tracing and analysis.
+//Actuator exposes endpoints for monitoring the health and metrics of your microservices.
+dependencies {
+    //integration between Micrometer and OpenTelemetry for tracing in Java applications
+    //micrometer ek metrics collection library h
+    //otel ek set of API hei to enable obervability
+    implementation 'io.micrometer:micrometer-tracing-bridge-otel'
+    //provides an exporter for OpenTelemetry that sends collected trace data to an
+    // OpenTelemetry Protocol
+    implementation 'io.opentelemetry:opentelemetry-exporter-otlp'
+    //Health Checks: Actuator adds an /actuator/health and auditing logging metrics
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('bootBuildImage') {
+    builder = 'paketobuildpacks/builder-jammy-base:latest'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

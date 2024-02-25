@@ -1,0 +1,6 @@
+OTEL is a observaility framework
+
+OBSERVABILITY INCLUDES METRICS LOGS AND TRACING
+
+OTEL is using for distributed tracing where one event takes through multiple hops
+in a distributed environment.
